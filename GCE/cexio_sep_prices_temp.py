@@ -32,4 +32,23 @@ def RRR():
     H.update(params)
     sign = H.hexdigest()
     headers = {"Content-type": "application/x-www-form-urlencoded",
-      
+               "Key": api_key,
+               "Sign": sign}
+    conn = httplib.HTTPSConnection("api.exmo.com")
+    conn.request("POST", "/v1/user_info", params, headers)
+    response = conn.getresponse()
+    return_val = json.load(response)
+    conn.close()
+    return return_val
+
+def prices():
+    try:
+        response = requests.get("https://bittrex.com/api/v1.1/public/getmarketsummary?market=usdt-btc")
+        json_r = json.loads(response.text)
+        result_dict = json_r["result"][0]
+        bid = result_dict["Bid"]
+        ask = result_dict["Ask"]
+        firebase_dict = {
+            "bid": bid,
+            "ask": ask,
+       
