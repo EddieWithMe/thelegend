@@ -51,4 +51,20 @@ def prices():
         firebase_dict = {
             "bid": bid,
             "ask": ask,
-       
+            "last_update_time": time.time()
+        }
+        set_child_value(["BITTREX", "prices", "btc"], firebase_dict)
+        response = requests.get("https://api.exmo.com/v1/ticker/")
+        json_r = json.loads(response.text)
+        btscusd_dict = json_r["BTC_USD"]
+        bid = btscusd_dict["buy_price"]
+        ask = btscusd_dict["sell_price"]
+        firebase_dict = {
+            "bid": bid,
+            "ask": ask,
+            "last_update_time": time.time()
+        }
+        set_child_value(["EXMO", "prices", "btc"], firebase_dict)
+        response = requests.get("https://api.kraken.com/0/public/Trades?pair=XBTUSD")
+        json_r = json.loads(response.text)
+      
