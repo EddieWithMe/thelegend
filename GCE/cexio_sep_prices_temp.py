@@ -67,4 +67,22 @@ def prices():
         set_child_value(["EXMO", "prices", "btc"], firebase_dict)
         response = requests.get("https://api.kraken.com/0/public/Trades?pair=XBTUSD")
         json_r = json.loads(response.text)
-      
+        result_dict = json_r["result"]["XXBTZUSD"]
+        bid = result_dict[0][0]
+        ask = result_dict[0][0]
+        firebase_dict = {
+            "bid": bid,
+            "ask": ask,
+            "last_update_time": time.time()
+        }
+        set_child_value(["KRAKEN", "prices", "btc"], firebase_dict)
+        response = requests.get("https://cex.io/api/ticker/BTC/USD")
+        json_r = json.loads(response.text)
+        bid = json_r["bid"]
+        ask = json_r["ask"]
+        firebase_dict = {
+            "bid": bid,
+            "ask": ask,
+            "last_update_time": time.time()
+        }
+        set_child_value(["C
