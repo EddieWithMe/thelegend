@@ -85,4 +85,23 @@ def prices():
             "ask": ask,
             "last_update_time": time.time()
         }
-        set_child_value(["C
+        set_child_value(["CEX", "prices", "btc"], firebase_dict)
+        response = requests.get("https://api.gdax.com/products/BTC-USD/ticker")
+        json_r = json.loads(response.text)
+        bid = json_r["bid"]
+        ask = json_r["ask"]
+        firebase_dict = {
+            "bid": bid,
+            "ask": ask,
+            "last_update_time": time.time()
+        }
+        set_child_value(["GDAX", "prices", "btc"], firebase_dict)
+    except:
+        print "prices"
+        time.sleep(2)
+
+def balances():
+    try:
+        cexio_balances = cex_global.balance
+        usd_avail = float(cexio_balances["USD"]["available"])
+        btc_avail = float(cexio_balances["BTC"][
