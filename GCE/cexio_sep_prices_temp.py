@@ -104,4 +104,18 @@ def balances():
     try:
         cexio_balances = cex_global.balance
         usd_avail = float(cexio_balances["USD"]["available"])
-        btc_avail = float(cexio_balances["BTC"][
+        btc_avail = float(cexio_balances["BTC"]["available"])
+        usd_orders = float(cexio_balances["USD"]["orders"])
+        btc_orders = float(cexio_balances["BTC"]["orders"])
+        set_child_value(["CEX", "positions", "total", "USD"], usd_avail + usd_orders)
+        set_child_value(["CEX", "positions", "total", "BTC"], btc_avail + btc_orders)
+
+    except:
+        print "cexio_balances"
+
+    try:
+        gdax_balances = gdax_global.get_position()
+        usd_avail = float(gdax_balances['accounts']['USD']['balance'])
+        btc_avail = float(gdax_balances['accounts']['BTC']['balance'])
+        set_child_value(["GDAX", "positions", "total", "USD"], usd_avail)
+        set_child_value(["GDAX", "positions", "
