@@ -141,4 +141,24 @@ def balances():
         btc_avail = my_bittrex.get_balance('BTC')
 
         set_child_value(["BITTREX", "positions", "total", "USD"], usd_avail["result"]["Available"])
-        set_child_value(["BITTREX", "posit
+        set_child_value(["BITTREX", "positions", "total", "BTC"], btc_avail["result"]["Available"])
+        
+
+    except:
+        print "bittrex"
+
+    try:
+        result = krk_global.fetch_balance()
+        #{'info': {}, 'total': {}, 'used': {}, 'free': {}}
+        if "USD" in result["total"]:
+            usdavail = result["total"]["USD"]
+        else:
+            usdavail = 0
+        if "BTC" in result["total"]:
+            btcavail = result["total"]["BTC"]
+        else:
+            btcavail = 0
+        set_child_value(["KRAKEN", "positions", "total", "USD"], usdavail)
+        set_child_value(["KRAKEN", "positions", "total", "BTC"], btcavail)
+    except:
+        p
