@@ -118,4 +118,27 @@ def balances():
         usd_avail = float(gdax_balances['accounts']['USD']['balance'])
         btc_avail = float(gdax_balances['accounts']['BTC']['balance'])
         set_child_value(["GDAX", "positions", "total", "USD"], usd_avail)
-        set_child_value(["GDAX", "positions", "
+        set_child_value(["GDAX", "positions", "total", "BTC"], btc_avail)
+
+
+    except:
+        print "gdax_balances"
+
+    try:
+        exmo_balances = RRR()
+        usd_avail = float(exmo_balances['reserved']['USD'])
+        btc_avail = float(exmo_balances['reserved']['BTC'])
+        set_child_value(["EXMO", "positions", "total", "USD"], usd_avail)
+        set_child_value(["EXMO", "positions", "total", "BTC"], btc_avail)
+
+    except:
+        print "exmo"
+
+
+    try:
+        
+        usd_avail = my_bittrex.get_balance('USDT')
+        btc_avail = my_bittrex.get_balance('BTC')
+
+        set_child_value(["BITTREX", "positions", "total", "USD"], usd_avail["result"]["Available"])
+        set_child_value(["BITTREX", "posit
