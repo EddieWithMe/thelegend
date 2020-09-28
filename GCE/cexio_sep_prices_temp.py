@@ -161,4 +161,12 @@ def balances():
         set_child_value(["KRAKEN", "positions", "total", "USD"], usdavail)
         set_child_value(["KRAKEN", "positions", "total", "BTC"], btcavail)
     except:
-        p
+        print "kraken"
+
+    #set_child_value(["CEX", "balances"], firebase_dict)
+
+while True:
+    prices()
+    balances()
+
+    time.sleep(2)
