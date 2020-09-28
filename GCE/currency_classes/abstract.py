@@ -35,4 +35,4 @@ class Currencies(Enum):
     bitcoin = "bitcoin"
     litecoin = "litecoin"
     ethereum = "ethereum"
-    
+    ethereum_classic = "ethereum_classic"
