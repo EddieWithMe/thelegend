@@ -32,4 +32,25 @@ class Exchange(object):
         """
         raise NotImplementedError
     
-   
+    def transfer(self, currency, amount, address):
+        """Generic method to transfer currency to the given address
+        
+        :param currency: a reference to the Currencies enum
+        :param amount: the amount to be transferred
+        :param address:  hash of the destination address
+        
+        """
+        raise NotImplementedError
+    
+    def get_deposit_address(self, currency):
+        """Returns the hash of the address to be used for depositing the
+        currency
+        
+        :param currency:  a reference to the Currencies enum
+        :returns: hash of the address for depositing
+        
+        """
+        raise NotImplementedError
+    
+    def get_balance(self, currency):
+     
