@@ -53,4 +53,27 @@ class Exchange(object):
         raise NotImplementedError
     
     def get_balance(self, currency):
-     
+        """Returns the current available balance of the given currency
+        
+        :param currency:
+        :return: float of the current available balance
+        
+        """
+        raise NotImplementedError
+
+    def get_order(self, order_id):
+        """
+        Returns the detail of the provided order_id
+        :param order_id:
+        :return:
+        """
+        raise NotImplementedError
+
+    def wait_for_order(self, order_id):
+        """When an order is placed in an exchange, it's not guaranteed to be
+        fulfilled immediately this method blocks excecution until the
+        order is fulfilled.
+        
+        :param order_id:
+        :return:
+  
