@@ -13,4 +13,16 @@ def get_most_recent_unnconfirmed_txn(address, original_amount_sent):
     :param original_amount_sent The amount of BTC sent
 
     """
-    r = requests.get("https://api.blockcypher.com/v1/btc/m
+    r = requests.get("https://api.blockcypher.com/v1/btc/main/addrs/%s" % address)
+    r.raise_for_status()
+    unconfirmed_txns = r.json()["unconfirmed_txrefs"]
+    for txn in unconfirmed_txns:
+        if txn["value"] == int(original_amount_sent * SATOSHIS_PER_BITCOIN):
+            return txn["tx_hash"]
+        else:
+            continue
+    raise LookupError("Could not deduce transaction id from address %s"
+                      "Found %s unconfirmed transactions for address none of which matched matched the sent btc amount." % (address, len(unconfirmed_txns)))
+
+def get_num_confirmations_transaction(txn_id):
+    r = requests.get("https://api.blockcypher.com
