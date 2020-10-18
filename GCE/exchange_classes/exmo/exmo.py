@@ -121,3 +121,61 @@ class Exmo(Exchange):
         """Generic method to transfer a btc to the given address
         
         :param amount: amount btc to be transfered
+        :param address: hash of the destination address
+        :return:
+        
+        """
+        return self.api_query("withdraw_crypt",
+                              {
+                                  "amount": amount,
+                                  "currency": self.currencies[currency].identifier,
+                                  "address": address,
+                                  "invoice": "1234"  # required for ripple (XRP)
+                              })
+    
+    def get_deposit_address(self, currency):
+        """Returns the hash of the address to be used for depositing btc
+        for the exchange
+        
+        :return: Return the deposit address for a BTC Wallet
+        
+        """
+        return self.api_query("deposit_address", {})
+    
+    def get_balance(self, currency):
+        """Returns the balance for a given currency. EXMO returns all
+        available currencies even if there is no balance, so there is
+        no need to see if a key exists in the result dictionary.
+        
+        A sample response looks like this: {u'DASH': u'0', u'USD':
+        ...
+        u'USDT': u'0', u'XRP': u'0', u'XMR' : u'0', u'EUR': u'0'}
+        
+        :param currency:
+        :returns: balance of a given currency
+        :rtype: int
+        """
+        return self.api_query("user_info")["balances"][self.currencies[currency].identifier]
+    
+    def wait_for_order(self, order_id):
+        """When an order is placed in an exchange, it's not guaranteed to be
+        fulfilled immediately this method blocks excecution until the
+        order is fulfilled.
+        
+        :param order_id:
+        :return:
+        
+        """
+        return order_id
+    
+    def return_transaction_from_address(self, address, amount):
+        """Some exchanges (Ex: gdax) don't return the blockchain transaction
+        hash immediately, this method blocks execution and returns the
+        transaction hash for a given address
+        
+        :param address: hash of the address
+        :param amount: original btc amount sent
+        :return: transaction hash for a given_address
+        
+        """
+        raise NotImplementedError
