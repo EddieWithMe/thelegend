@@ -25,4 +25,8 @@ def get_most_recent_unnconfirmed_txn(address, original_amount_sent):
                       "Found %s unconfirmed transactions for address none of which matched matched the sent btc amount." % (address, len(unconfirmed_txns)))
 
 def get_num_confirmations_transaction(txn_id):
-    r = requests.get("https://api.blockcypher.com
+    r = requests.get("https://api.blockcypher.com/v1/btc/main/txs/%s" % txn_id)
+    r.raise_for_status()
+    return r.json()["confirmations"]
+
+
