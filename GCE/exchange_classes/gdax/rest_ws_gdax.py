@@ -27,4 +27,10 @@ import logging
 logging.basicConfig()
 
 BASE_URL = u'https://api.gdax.com'
-PUBLIC_CALLS = {u'products', u'product_orde
+PUBLIC_CALLS = {u'products', u'product_order_book', u'ticker', u'product_trades', u'product_historic_rates', u'product_24hr_stats', u'currencies', u'time'}
+PRIVATE_CALLS = {u'account':u'GET', u'accounts':u'GET', u'account_history':u'GET', u'account_holds':u'GET', u'history_pagination':u'GET', u'holds_pagination':u'GET', u'buy':u'POST', u'sell':u'POST', u'cancel_order':u'POST', u'cancel_all':u'POST'}
+
+'''
+def record_log_in_firebase_func(result, request_url, param, rate_of_calls, time_elapsed, wo_id):
+    push_dict = {"result":str(result),"request_url":str(request_url),"param":str(param), "timestamp":time.time(),
+                 "neg_timestamp":-time.time(), "api_rate":rate_of_calls,"time_elapsed":time_elapsed, "wo_i
