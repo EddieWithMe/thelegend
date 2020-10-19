@@ -50,4 +50,22 @@ def ws_price_health_check(ask_price, bid_price):
 
 class GDAXAPI(object):
 
-    def __init__(self, api_key=TEST_GDAX_API_KEY, api_secret=TEST_GDAX_API_SE
+    def __init__(self, api_key=TEST_GDAX_API_KEY, api_secret=TEST_GDAX_API_SECRET, api_passphrase=TEST_GDAX_API_PASSPHRASE):
+        self.next_call_time = 0
+        self.api_key = api_key
+        self.api_secret = api_secret
+        self.api_passphrase = api_passphrase
+        self.ask_price = 0
+        self.bid_price = 0
+        self.old_ask = 0
+        self.old_bid = 0
+        self.max_working_orders = 5
+        self.working_order_dict = {}
+        self.continue_threads = True
+        self.api_calls_this_time_period = 0.0
+        self.time_period_length_in_seconds = 180
+        self.time_period_start = 0
+        self.api_calls_per_second = 0.0
+        self.queue = deque()
+        self.start_time = time.time()
+        self.test_mode_active = Fal
