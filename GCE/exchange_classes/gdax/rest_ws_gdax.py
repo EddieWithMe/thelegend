@@ -33,4 +33,21 @@ PRIVATE_CALLS = {u'account':u'GET', u'accounts':u'GET', u'account_history':u'GET
 '''
 def record_log_in_firebase_func(result, request_url, param, rate_of_calls, time_elapsed, wo_id):
     push_dict = {"result":str(result),"request_url":str(request_url),"param":str(param), "timestamp":time.time(),
-                 "neg_timestamp":-time.time(), "api_rate":rate_of_calls,"time_elapsed":time_elapsed, "wo_i
+                 "neg_timestamp":-time.time(), "api_rate":rate_of_calls,"time_elapsed":time_elapsed, "wo_id":wo_id}
+    firebase_push_value(["cexio_bitfinex", "api_call_log"], push_dict)
+
+def ws_price_health_check(ask_price, bid_price):
+    response_var = requests.get("https://cex.io/api/ticker/BTC/USD")
+    response_json = json.loads(response_var.text)
+    test_variable = abs(float(response_json["ask"]) - ask_price) * 100 / ask_price
+    test_variable_2 = abs(float(response_json["bid"]) - bid_price) * 100 / bid_price
+    if test_variable > 1 and test_variable_2 > 1:
+        # health warning
+        print "may be problematic"
+    else:
+        print "prices healthy"
+'''
+
+class GDAXAPI(object):
+
+    def __init__(self, api_key=TEST_GDAX_API_KEY, api_secret=TEST_GDAX_API_SE
