@@ -68,4 +68,25 @@ class GDAXAPI(object):
         self.api_calls_per_second = 0.0
         self.queue = deque()
         self.start_time = time.time()
-        self.test_mode_active = Fal
+        self.test_mode_active = False
+        self.auth = GdaxAuth(api_key, api_secret, api_passphrase) #todo: add this scheme to cexio
+        self.ws = None
+        t = threading.Thread(target=self.maintain_websocket_thread)
+        t.start()
+
+        t = threading.Thread(target=self.update_ticker_thread)
+        t.start()
+
+    def discontinue_threads(self):
+        self.continue_threads = False
+
+    def api_call(self, **kwargs):
+        if "wo_id" in kwargs:
+            wo_id = kwargs["wo_id"]
+        else:
+            wo_id = ''
+        command = kwargs["command"]
+        if "param" in kwargs:
+            param = kwargs["param"]
+        else:
+            param
