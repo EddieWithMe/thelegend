@@ -89,4 +89,26 @@ class GDAXAPI(object):
         if "param" in kwargs:
             param = kwargs["param"]
         else:
-            param
+            param = {}
+        if "action" in kwargs:
+            action = kwargs["action"]
+        else:
+            action = ''
+        if "call" in kwargs:
+            call = kwargs["call"]
+        else:
+            call = ''
+        """
+        :param command: Query command for getting info
+        :type commmand: str
+        :param param: Extra options for query
+        :type options: dict
+        :return: JSON response from CEX.IO
+        :rtype : dict
+        """
+        print command
+        print call
+        if call not in PUBLIC_CALLS:
+            call_type = PRIVATE_CALLS[call]
+            before_time = time.time()
+            if call_type == 'GET':
