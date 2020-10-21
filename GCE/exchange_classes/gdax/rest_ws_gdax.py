@@ -112,3 +112,17 @@ class GDAXAPI(object):
             call_type = PRIVATE_CALLS[call]
             before_time = time.time()
             if call_type == 'GET':
+                r = requests.get(BASE_URL + '/' + str(command) + '/', auth=self.auth)
+            else:
+                r = requests.post(BASE_URL + '/' + command + '/', data=json.dumps(kwargs), auth=self.auth)
+            after_time = time.time()
+            time_elapsed = after_time - before_time
+            self.queue.append((time.time(), time_elapsed))
+        else:
+            before_time = time.time()
+            r = requests.get(BASE_URL + '/' + command + '/')  # no authentication needed
+            after_time = time.time()
+            time_elapsed = after_time - before_time
+            self.queue.append((time.time(), time_elapsed))
+
+        #t = thre
