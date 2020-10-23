@@ -125,4 +125,22 @@ class GDAXAPI(object):
             time_elapsed = after_time - before_time
             self.queue.append((time.time(), time_elapsed))
 
-        #t = thre
+        #t = threading.Thread(target=self.update_queue)
+        #t.start()
+        #t = threading.Thread(target=record_log_in_firebase_func, args=[result, request_url, param, self.api_calls_per_second, time_elapsed, wo_id])
+        #t.start()
+        print r.json()
+        return r.json()
+
+    def balance(self, account_id=''):
+        return self.api_call(call='accounts', command='accounts', param=None, action=None)
+
+    def ticker(self, market):
+        """
+        :param market: String literal for the market (ex: BTC/ETH)
+        :type market: str
+        :return: Current values for given market in JSON
+        :rtype : dict
+        """
+        #wo_id, command, param = None, action = ''
+        print 
