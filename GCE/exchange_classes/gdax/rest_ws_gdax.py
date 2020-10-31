@@ -143,4 +143,22 @@ class GDAXAPI(object):
         :rtype : dict
         """
         #wo_id, command, param = None, action = ''
-        print 
+        print market
+        return self.api_call(call='ticker', command='products/{}/ticker'.format(market), param=None, action=None)
+
+    def update_dicts(self, bids_dict, asks_dict, data, ask_or_bid):
+        if ask_or_bid == "bids":
+            bids_dict[data[0]] = data[1]
+        elif ask_or_bid == "asks":
+            asks_dict[data[0]] = data[1]
+
+    def update_queue(self):
+        TIME_WINDOW_SECS = 600.0
+        avg_latency = 0.0
+        try:
+            while self.queue[0][0] < time.time() - TIME_WINDOW_SECS:
+                self.queue.popleft()
+        except IndexError:
+            print "there are no records in the queue."
+
+        for item in
