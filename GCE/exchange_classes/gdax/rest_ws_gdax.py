@@ -161,4 +161,21 @@ class GDAXAPI(object):
         except IndexError:
             print "there are no records in the queue."
 
-        for item in
+        for item in self.queue:
+            avg_latency += item[1]
+        if len(self.queue):
+            avg_latency = avg_latency/len(self.queue)
+
+        dfds = time.time() - self.start_time
+        if dfds < TIME_WINDOW_SECS:
+            self.api_calls_per_second = float(len(self.queue)) / float(dfds)
+        else:
+            self.api_calls_per_second = float(len(self.queue)) / float(TIME_WINDOW_SECS)
+        '''
+        set_child_value(["bitfinex_gdax", "num_calls_per_sec"], self.api_calls_per_second)
+        if avg_latency:
+            set_child_value(["bitfinex_gdax", "avg_latency"], avg_latency)
+        '''
+
+    def update_ticker(self):
+        return
