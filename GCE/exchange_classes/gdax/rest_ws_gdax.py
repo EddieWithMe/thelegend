@@ -178,4 +178,20 @@ class GDAXAPI(object):
         '''
 
     def update_ticker(self):
-        return
+        return_val = self.ticker()
+        if type(return_val) != dict:
+            return_val = json.loads(return_val)
+        self.ask_price = return_val["ask"]
+        self.bid_price = return_val["bid"]
+
+    def update_ticker_thread(self):
+        counter = 0
+        while self.continue_threads:
+            counter += 1
+            if counter % 20000 == 0:
+                self.update_queue()
+                #ws_price_health_check(self.ask_price, self.bid_price)
+            try:
+                if time.time() - self.ws.last_update_time < 8:
+                    self.ask_price = self.ws.best_ask
+                    self.bid_price
