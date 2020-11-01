@@ -224,4 +224,21 @@ class GDAXAPI(object):
                 while self.ws.ws.sock.connected:
                     time.sleep(1)
                     if time.time() - start_time > RESTART_INTERVAL:
-         
+                        break
+                self.ws.subscribed_to_orderbook = False
+                self.ws.exit()
+                time.sleep(2)
+            except Exception as ex:
+                print "except location 1"
+                print ex
+
+    def best_bid_ask(self, bids_dict, asks_dict):
+        bid_list = []
+        for item in bids_dict:
+            bid_list.append((item, bids_dict[item]))
+        bid_list.sort(key=itemgetter(0), reverse=True)
+        best_bid = bid_list[0][0]
+        ask_list = []
+        for item in asks_dict:
+            ask_list.append((item, asks_dict[item]))
+        ask_list.s
