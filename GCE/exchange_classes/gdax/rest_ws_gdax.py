@@ -206,4 +206,22 @@ class GDAXAPI(object):
                     self.old_bid = self.bid_price
                     firebase_dict = {
                         "bid": self.bid_price,
-                        "ask": se
+                        "ask": self.ask_price,
+                        "last_update_time": time.time()
+                    }
+                    #set_child_value(["gdax", "prices", "btc"], firebase_dict)
+            except:
+                print "timeout or error gdax"
+            time.sleep(.001)
+
+    def maintain_websocket_thread(self):
+        self.ws = GDAXWebsocket()
+        RESTART_INTERVAL = 2000
+        while True:
+            try:
+                self.ws.connect()
+                start_time = time.time()
+                while self.ws.ws.sock.connected:
+                    time.sleep(1)
+                    if time.time() - start_time > RESTART_INTERVAL:
+         
