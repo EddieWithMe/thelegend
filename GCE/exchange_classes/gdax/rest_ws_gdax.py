@@ -194,4 +194,16 @@ class GDAXAPI(object):
             try:
                 if time.time() - self.ws.last_update_time < 8:
                     self.ask_price = self.ws.best_ask
-                    self.bid_price
+                    self.bid_price = self.ws.best_bid
+                else:
+                    print "did update ticker"
+                    self.update_ticker()
+                    #set_child_value(["gdax", "prices", "btc", "bid"], self.bid_price)
+                    #set_child_value(["gdax", "prices", "btc", "ask"], self.ask_price)
+                    time.sleep(2.1)
+                if abs(self.old_ask - self.ask_price) > .5 or abs(self.old_bid - self.bid_price) > .5:
+                    self.old_ask = self.ask_price
+                    self.old_bid = self.bid_price
+                    firebase_dict = {
+                        "bid": self.bid_price,
+                        "ask": se
