@@ -241,4 +241,23 @@ class GDAXAPI(object):
         ask_list = []
         for item in asks_dict:
             ask_list.append((item, asks_dict[item]))
-        ask_list.s
+        ask_list.sort(key=itemgetter(0))
+        best_ask = ask_list[0][0]
+        return best_bid, best_ask
+
+class GDAXWebsocket(object):
+
+    def __init__(self, api_key=TEST_GDAX_API_KEY, api_secret=TEST_GDAX_API_SECRET, api_passphrase=TEST_GDAX_API_PASSPHRASE):
+        self.api_key = api_key
+        self.api_secret = api_secret
+        self.api_passphrase = api_passphrase
+        self.old_best_bid = -1
+        self.old_best_ask = -1
+        self.best_bid = -1
+        self.best_ask = -1
+        self.bids_dict = {}
+        self.asks_dict = {}
+        self.sent_subscribed_to_room = False
+        self.exited = False
+        self.stop = False
+       
