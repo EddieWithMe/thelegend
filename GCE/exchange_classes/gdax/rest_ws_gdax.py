@@ -260,4 +260,24 @@ class GDAXWebsocket(object):
         self.sent_subscribed_to_room = False
         self.exited = False
         self.stop = False
-       
+        self.ws = None
+        self.wst = None
+        self.thread = None
+        self.is_authenticated = False
+        self._sequence = -1
+        self._current_ticker = None
+        self.last_balance_sent = 0
+        self.last_orders_sent = 0
+        self.sent_subscribed_to_room = False
+        self.last_update_time = 0
+        self.url = 'wss://ws-feed.gdax.com'
+
+    def exit(self):
+        self.exited = True
+        self.ws.close()
+
+    def create_gdax_signature(self, secret):
+        timestamp = str(time.time())
+        path = '/users/self/verify'
+        message = timestamp + 'GET' + path
+        message = message.enco
