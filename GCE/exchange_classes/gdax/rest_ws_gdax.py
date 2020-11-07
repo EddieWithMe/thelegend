@@ -280,4 +280,18 @@ class GDAXWebsocket(object):
         timestamp = str(time.time())
         path = '/users/self/verify'
         message = timestamp + 'GET' + path
-        message = message.enco
+        message = message.encode('ascii')
+        hmac_key = base64.b64decode(secret)
+        signature = hmac.new(hmac_key, message, hashlib.sha256)
+        signature_b64 = base64.b64encode(signature.digest())
+        return signature_b64
+
+    def connect(self):
+        if self.url[-1] == "/":
+            self.url = self.url[:-1]
+        self.ws = websocket.WebSocketApp(self.url,
+                                         on_open=self.__on_open,
+                                         on_message=self.__on_message,
+                                         on_close=self.__on_close,
+                                         on_error=self.__on_error)
+        self.wst = t
