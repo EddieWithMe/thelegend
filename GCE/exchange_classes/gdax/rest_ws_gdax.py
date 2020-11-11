@@ -294,4 +294,21 @@ class GDAXWebsocket(object):
                                          on_message=self.__on_message,
                                          on_close=self.__on_close,
                                          on_error=self.__on_error)
-        self.wst = t
+        self.wst = threading.Thread(target=lambda: self.ws.run_forever())
+        self.wst.daemon = True
+        self.wst.start()
+        conn_timeout = 5
+        try:
+            while (not self.ws.sock or not self.ws.sock.connected) and conn_timeout:
+                time.sleep(1)
+                conn_timeout -= 1
+            if not conn_timeout:
+                self.exit()
+        except Exception as ex:
+            print "except location 2"
+            print ex
+
+    def __on_open(self, ws):
+        auth_request = self.auth_request(self.api_key, self.api_secret, self.api_passphrase)
+        self.stop = False
+        #sub_params = {'type': 'subscribe', 'product_i
