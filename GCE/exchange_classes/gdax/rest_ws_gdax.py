@@ -311,4 +311,22 @@ class GDAXWebsocket(object):
     def __on_open(self, ws):
         auth_request = self.auth_request(self.api_key, self.api_secret, self.api_passphrase)
         self.stop = False
-        #sub_params = {'type': 'subscribe', 'product_i
+        #sub_params = {'type': 'subscribe', 'product_ids': [u'BTC-USD'], "channels": [u'user']} #authenticated
+        #sub_params = {'type': 'subscribe', 'product_ids': ["BTC-USD"]}
+        #sub_params = {"type": "open", "user_id": "e758536a-f1a7-444b-8713-8ac6b652804e", "profile_id": "e8861c5c-c373-42f0-a13c-22ce6cfe8a14"}
+
+        #auth_dict = auth_request.update(sub_params)
+
+        ws.send(json.dumps(auth_request))
+        #ws.send(sub_params)
+
+    def __on_close(self, ws):
+        pass
+
+    def __on_message(self, ws, message):
+        while not self.stop:
+            try:
+                msg = json.loads(message)
+            except Exception as e:
+                ws.__on_error(e)
+       
