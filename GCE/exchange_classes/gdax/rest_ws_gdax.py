@@ -329,4 +329,21 @@ class GDAXWebsocket(object):
                 msg = json.loads(message)
             except Exception as e:
                 ws.__on_error(e)
-       
+            else:
+                #ws.handle_open_orders(msg)
+                #ws.handle_subscr_order_book(msg)
+                #ws.handle_md_update(msg)
+                #ws.handle_order_updates(msg)
+                print(msg)
+
+    def __on_error(self, ws):
+        #print error
+        return
+
+    def auth_request(self, key, secret, passphrase):
+        timestamp = str(time.time())
+        signature = self.create_gdax_signature(secret)
+        return {u'type': u'subscribe', u'product_ids': [u'BTC-USD'], u'channels': [u'full'], u'key': key, u'signature': signature, u'timestamp': timestamp,
+                u'passphrase': passphrase}
+
+    def handle_get_orders(sel
