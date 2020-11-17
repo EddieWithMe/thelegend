@@ -346,4 +346,19 @@ class GDAXWebsocket(object):
         return {u'type': u'subscribe', u'product_ids': [u'BTC-USD'], u'channels': [u'full'], u'key': key, u'signature': signature, u'timestamp': timestamp,
                 u'passphrase': passphrase}
 
-    def handle_get_orders(sel
+    def handle_get_orders(self, json_message):
+        if (not self.is_authenticated):
+            return
+        if time.time() - self.last_balance_sent:
+            subscribe_dict = GDAXWebsocket.room_subscribe_message
+            self.sent_subscribed_to_room = True
+            self.ws.send(subscribe_dict)
+
+    def remove(self, bids_dict, asks_dict, data):
+        if data[0] in bids_dict:
+            del bids_dict[data[0]]
+        elif data[0] in asks_dict:
+            del asks_dict[data[0]]
+
+    def handle_open_orders(self, json_message):
+        sub_params = {"type": "open", "user_id": "5844eceecf7e803e259d0365", "profile_id": "765d1549-9660-4b
