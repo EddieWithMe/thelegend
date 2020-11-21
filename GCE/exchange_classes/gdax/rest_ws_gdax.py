@@ -361,4 +361,24 @@ class GDAXWebsocket(object):
             del asks_dict[data[0]]
 
     def handle_open_orders(self, json_message):
-        sub_params = {"type": "open", "user_id": "5844eceecf7e803e259d0365", "profile_id": "765d1549-9660-4b
+        sub_params = {"type": "open", "user_id": "5844eceecf7e803e259d0365", "profile_id": "765d1549-9660-4be2-97d4-fa2d65fa3352"}
+
+    def make_order_dicts(self, json_message):
+        return_bids_dict = {}
+        return_asks_dict = {}
+        bids_list = json_message["data"]["bids"]
+        asks_list = json_message["data"]["asks"]
+        for item in bids_list:
+            price_level = item[0]
+            quantity = item[1]
+            return_bids_dict[price_level] = quantity
+        for item in asks_list:
+            price_level = item[0]
+            quantity = item[1]
+            return_asks_dict[price_level] = quantity
+        return return_bids_dict, return_asks_dict
+
+
+class GdaxAuth(AuthBase):
+    # Provided by gdax: https://docs.gdax.com/#signing-a-message
+    de
