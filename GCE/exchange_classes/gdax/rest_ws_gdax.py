@@ -396,4 +396,16 @@ class GdaxAuth(AuthBase):
         request.headers.update({
             'Content-Type': 'Application/JSON',
             'CB-ACCESS-SIGN': signature_b64,
-            'CB-ACCE
+            'CB-ACCESS-TIMESTAMP': timestamp,
+            'CB-ACCESS-KEY': self.api_key,
+            'CB-ACCESS-PASSPHRASE': self.passphrase
+        })
+        return request
+
+#asdf = GDAXWebsocket()
+#asdf.connect()
+
+rest = GDAXAPI()
+#ws.balance()
+#rest.ticker('BTC-USD')
+#rest.balance()
