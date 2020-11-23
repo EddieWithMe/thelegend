@@ -31,4 +31,24 @@ class Connection:
 
         Arguments:
         uri     -- URI to connect to (default: 'https://api.kraken.com')
-        timeout -- bl
+        timeout -- blocking operations' timeout in seconds (default: 30)
+        """
+        self.headers = {
+            'User-Agent': 'krakenex/0.0.5 (+https://github.com/veox/python2-krakenex)'
+        }
+
+        self.conn = httplib.HTTPSConnection(uri, timeout=timeout)
+
+    def close(self):
+        """ Close the connection.
+
+        No arguments.
+        """
+        self.conn.close()
+
+    def _request(self, url, req={}, headers={}):
+        """ Send POST request to API server.
+
+        url     -- Fully-qualified URL with all necessary urlencoded
+                   information (string, no default)
+        req     -- additional A
