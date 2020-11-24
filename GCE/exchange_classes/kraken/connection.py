@@ -51,4 +51,14 @@ class Connection:
 
         url     -- Fully-qualified URL with all necessary urlencoded
                    information (string, no default)
-        req     -- additional A
+        req     -- additional API request parameters (default: {})
+        headers -- additional HTTPS headers, such as API-Key and API-Sign
+                   (default: {})
+        """
+        data = urllib.urlencode(req)
+        headers.update(self.headers)
+
+        self.conn.request("POST", url, data, headers)
+        response = self.conn.getresponse()
+
+        return response.read()
