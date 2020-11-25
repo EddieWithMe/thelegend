@@ -28,4 +28,27 @@ import connection
 
 from ..abstract import Exchange
 from GCE.currency_classes.abstract import Currencies
-from GCE.currency_classes.bitcoi
+from GCE.currency_classes.bitcoin.bitcoin import Bitcoin
+from GCE.currency_classes.ethereum.ethereum import Ethereum
+from GCE.currency_classes.ethereum_classic.ethereum_classic import EthereumClassic
+from GCE.currency_classes.litecoin.litecoin import Litecoin
+
+
+class Kraken(Exchange):
+    """Kraken.com cryptocurrency Exchange API.
+    
+    Public methods:
+    load_key
+    query_public
+    query_private
+    
+    """
+    
+    def __init__(self, key, secret):
+        """Create an object with authentication information.
+        
+        Arguments:
+        key    -- key required to make queries to the API (default: '')
+        secret -- private key used to sign API messages (default: '')
+        
+        
