@@ -51,4 +51,20 @@ class Kraken(Exchange):
         key    -- key required to make queries to the API (default: '')
         secret -- private key used to sign API messages (default: '')
         
+        """
+        self.key = key
+        self.secret = secret
+        self.uri = 'https://api.kraken.com'
+        self.apiversion = '0'
+        self.buy_poll_time = 0.2
+        self.currencies = {
+            Currencies.bitcoin: Bitcoin(),
+            Currencies.ethereum: Ethereum(),
+            Currencies.ethereum_classic: EthereumClassic(),
+            Currencies.litecoin: Litecoin()
+        }
         
+        self.currencies[Currencies.bitcoin].usd_pair = "XXBTZUSD"
+        self.currencies[Currencies.ethereum].usd_pair = "ETHUSD"
+        self.currencies[Currencies.ethereum_classic].usd_pair = "ETCUSD"
+        self.currencies[Currencies.lite
