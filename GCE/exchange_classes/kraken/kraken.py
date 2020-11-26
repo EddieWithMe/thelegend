@@ -67,4 +67,24 @@ class Kraken(Exchange):
         self.currencies[Currencies.bitcoin].usd_pair = "XXBTZUSD"
         self.currencies[Currencies.ethereum].usd_pair = "ETHUSD"
         self.currencies[Currencies.ethereum_classic].usd_pair = "ETCUSD"
-        self.currencies[Currencies.lite
+        self.currencies[Currencies.litecoin].usd_pair = "LTCUSD"
+    
+    def load_key(self, path):
+        """Load key and secret from file.
+        
+        Argument:
+        path -- path to file (string, no default)
+        
+        """
+        with open(path, "r") as f:
+            self.key = f.readline().strip()
+            self.secret = f.readline().strip()
+    
+    def _query(self, urlpath, req={}, conn=None, headers={}):
+        """Low-level query handling.
+        
+        Arguments:
+        urlpath -- API URL path sans host (string, no default)
+        req     -- additional API request parameters (default: {})
+        conn    -- kraken.Connection object (default: None)
+        hea
