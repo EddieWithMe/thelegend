@@ -107,4 +107,21 @@ class Kraken(Exchange):
         conn   -- connection object to reuse (default: None)
         
         """
-        urlpath = '/' + se
+        urlpath = '/' + self.apiversion + '/public/' + method
+        
+        return self._query(urlpath, req, conn)
+    
+    def query_private(self, method, req={}, conn=None):
+        """API queries that require a valid key/secret pair.
+        
+        Arguments:
+        method -- API method name (string, no default)
+        req    -- additional API request parameters (default: {})
+        conn   -- connection object to reuse (default: None)
+        
+        """
+        urlpath = '/' + self.apiversion + '/private/' + method
+        
+        req['nonce'] = int(1000 * time.time())
+        postdata = urllib.urlencode(req)
+        message = urlpath + has
