@@ -87,4 +87,24 @@ class Kraken(Exchange):
         urlpath -- API URL path sans host (string, no default)
         req     -- additional API request parameters (default: {})
         conn    -- kraken.Connection object (default: None)
-        hea
+        headers -- HTTPS headers (default: {})
+        
+        """
+        url = self.uri + urlpath
+        
+        if conn is None:
+            conn = connection.Connection()
+            
+        ret = conn._request(url, req, headers)
+        return json.loads(ret)
+    
+    def query_public(self, method, req={}, conn=None):
+        """API queries that do not require a valid key/secret pair.
+        
+        Arguments:
+        method -- API method name (string, no default)
+        req    -- additional API request parameters (default: {})
+        conn   -- connection object to reuse (default: None)
+        
+        """
+        urlpath = '/' + se
