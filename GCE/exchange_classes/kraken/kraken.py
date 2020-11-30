@@ -124,4 +124,24 @@ class Kraken(Exchange):
         
         req['nonce'] = int(1000 * time.time())
         postdata = urllib.urlencode(req)
-        message = urlpath + has
+        message = urlpath + hashlib.sha256(str(req['nonce']) +
+                                           postdata).digest()
+        signature = hmac.new(base64.b64decode(self.secret),
+                             message, hashlib.sha512)
+        headers = {
+            'API-Key': self.key,
+            'API-Sign': base64.b64encode(signature.digest())
+        }
+        
+        return self._query(urlpath, req, conn, headers)
+    
+    def buy(self, currency, amount):
+        """
+        Method to place a buy market order
+        
+        :param amount: amount btc to be bought
+        :return: Response from the server
+        
+        """
+        parameters = {
+            "pai
