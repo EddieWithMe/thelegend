@@ -144,4 +144,24 @@ class Kraken(Exchange):
         
         """
         parameters = {
-            "pai
+            "pair": self.currencies[currency].usd_pair,
+            "type": "buy",
+            "ordertype": "market",
+            "volume": amount,
+            "post": "viqc"
+        }
+        response = self.query_private("AddOrder", parameters)
+        order_details = self.get_order(response["result"]["txid"][0])
+        return {"id": response["result"]["txid"][0], "size": order_details["vol"]}
+    
+    def sell(self, currency, amount):
+        """
+        Generic method to place a sell market order
+        
+        :param amount: amount btc to be sold
+        :return:
+        
+        """
+        parameters = {
+            "pair": self.currencies[currency].usd_pair,
+   
