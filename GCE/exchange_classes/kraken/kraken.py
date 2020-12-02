@@ -186,4 +186,22 @@ class Kraken(Exchange):
             "key": address,
             "amount": amount
         }
+        return self.query_private("Withdraw", parameters)
     
+    def get_deposit_address(self, currency):
+        """Returns the hash of the address to be used for depositing btc
+        for the exchange
+        
+        :return: Return the deposit address for a BTC Wallet
+        
+        """
+        parameters = {
+            #"aclass": self.currencies[currency].identifier,
+            #"asset": "USD",
+            "method": "btc",  # fixme
+        }
+        response = self.query_private("DepositMethods", parameters)
+        return response["address"]
+    
+    def get_balance(self, currency):
+        """Returns the c
