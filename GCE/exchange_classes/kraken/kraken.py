@@ -164,4 +164,26 @@ class Kraken(Exchange):
         """
         parameters = {
             "pair": self.currencies[currency].usd_pair,
-   
+            "type": "sell",
+            "ordertype": "market",
+            "volume": amount,
+            "oflags": "viqc"
+        }
+        
+        return self.query_private("AddOrder", parameters)
+    
+    def transfer(self, currency, amount, address):
+        """Generic method to transfer a currency to the given address
+        
+        :param amount: amount to be transfered
+        :param address: hash of the destination address
+        :return:
+
+        """
+        parameters = {
+            "aclass": self.currencies[currency].identifier,
+            "asset": "USD",
+            "key": address,
+            "amount": amount
+        }
+    
