@@ -204,4 +204,17 @@ class Kraken(Exchange):
         return response["address"]
     
     def get_balance(self, currency):
-        """Returns the c
+        """Returns the current available balance of the given currency.
+        The Kraken API only returns balances for those accounts which
+        have money. Therefore if the user does not have any BTC, there
+        will be no BTC key in the result dictionary.
+        
+        The response in this case will look like this: {u'result': {}, u'error': []}
+        For this reason, the API will check for the existence of a key
+        in the result, and if it does not exist, will return a value of 0.
+        
+        :param currency:
+        :return: float of the current available balance
+        
+        """
+        query_result = self.query_private("Balance", 
