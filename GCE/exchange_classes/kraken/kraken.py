@@ -217,4 +217,23 @@ class Kraken(Exchange):
         :return: float of the current available balance
         
         """
-        query_result = self.query_private("Balance", 
+        query_result = self.query_private("Balance", {})["result"]
+        try:
+            return query_result[self.currencies[currency].identifier]
+        except KeyError:
+            # specified currency does not have a balance
+            return 0
+    
+    def get_order(self, order_id):
+        """
+        
+        :param order_id:
+        :return: "closed" or "open"
+        """
+        parameters = {"txid": order_id}
+        return self.query_private("QueryOrders", parameters)["result"][order_id]
+    
+    def wait_for_order(self, order_id):
+        """
+        When an order is placed in an exchange, it's not guarenteed to be
+        fulfilled immediately this method blocks excecu
