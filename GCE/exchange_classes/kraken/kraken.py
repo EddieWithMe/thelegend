@@ -236,4 +236,24 @@ class Kraken(Exchange):
     def wait_for_order(self, order_id):
         """
         When an order is placed in an exchange, it's not guarenteed to be
-        fulfilled immediately this method blocks excecu
+        fulfilled immediately this method blocks excecution until the
+        order is fulfilled
+        
+        :param order_id:
+        :return:
+        
+        """
+        order = self.get_order(order_id)
+        while order["status"] != "closed":
+            time.sleep(self.buy_poll_time)
+            order = self.get_order(order_id)
+        return order
+    
+    def return_transaction_from_address(self, address, amount):
+        """
+        Some exchanges (Ex: gdax) don't return the blockchain transaction
+        hash immediately, this method blocks execution and returns the
+        transaction hash for a given address
+        
+        :param address: hash of the address
+       
