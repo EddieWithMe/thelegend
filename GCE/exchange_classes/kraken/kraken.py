@@ -256,4 +256,8 @@ class Kraken(Exchange):
         transaction hash for a given address
         
         :param address: hash of the address
-       
+        :param amount: original btc amount sent
+        :return: transaction hash for a given_address
+        
+        """
+        raise NotImplementedError
