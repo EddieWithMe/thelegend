@@ -28,4 +28,12 @@ class Exchanges:
         #    self.wos_dict[ex_name] = {}
         self.ex_dict = {}
         self.ex_dict["cex"] = Cex(secrets.TEST_CEX_UID, secrets.TEST_CEX_KEY, secrets.TEST_CEX_SECRET)
-        self.ex_dict["bittrex"] = Bittrex(
+        self.ex_dict["bittrex"] = Bittrex(secrets.TEST_BITTREX_KEY, secrets.TEST_BITTREX_SECRET)
+        self.ex_dict["kraken"] = Kraken(secrets.TEST_KRAKEN_KEY, secrets.TEST_KRAKEN_SECRET)
+        self.ex_dict["exmo"] = Exmo(secrets.TEST_EXMO_KEY, secrets.TEST_EXMO_SECRET)
+
+        if settings.GDAX_PRODUCTION:
+            self.ex_dict["gdax"] = Gdax(secrets.TEST_GDAX_KEY, secrets.TEST_GDAX_SECRET, secrets.TEST_GDAX_PASSPHRASE)
+            #self.ex_dict["gdax"] = Gdax(secrets.LIVE_GDAX_KEY, secrets.LIVE_GDAX_SECRET, secrets.LIVE_GDAX_PASSPHRASE)
+        else:
+            self.ex_dict["gdax"] = Gdax(secrets.TEST_GDAX_KEY, secrets.TEST_GDAX_SECRET, secrets.TEST_GDAX_PASSPHRASE,url="https://api-public.sandbox.
