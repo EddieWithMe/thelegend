@@ -36,4 +36,22 @@ class Exchanges:
             self.ex_dict["gdax"] = Gdax(secrets.TEST_GDAX_KEY, secrets.TEST_GDAX_SECRET, secrets.TEST_GDAX_PASSPHRASE)
             #self.ex_dict["gdax"] = Gdax(secrets.LIVE_GDAX_KEY, secrets.LIVE_GDAX_SECRET, secrets.LIVE_GDAX_PASSPHRASE)
         else:
-            self.ex_dict["gdax"] = Gdax(secrets.TEST_GDAX_KEY, secrets.TEST_GDAX_SECRET, secrets.TEST_GDAX_PASSPHRASE,url="https://api-public.sandbox.
+            self.ex_dict["gdax"] = Gdax(secrets.TEST_GDAX_KEY, secrets.TEST_GDAX_SECRET, secrets.TEST_GDAX_PASSPHRASE,url="https://api-public.sandbox.gdax.com")
+
+    ###possibly change to architecture where we have the working orders as objects of the exchange container,
+    ###not sure how much it actually matters which things the working orders are a part of
+
+    def create_wo(self, wo_params_dict):
+        """
+        create a working order and run it in a separate thread
+        all necessary arguments are within the working order object itself
+        :param wo_params_dict: 
+        :return: 
+        """
+        if len(self.wos_dict) > 0:
+            print "len(self.wos_dict) > 0"
+            return
+        # required_spread, quantity, buy_ex, send_ex
+        if wo_params_dict["buy_on"] == wo_params_dict["send_to"]:
+            return
+        wo_o
