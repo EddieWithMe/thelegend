@@ -54,4 +54,13 @@ class Exchanges:
         # required_spread, quantity, buy_ex, send_ex
         if wo_params_dict["buy_on"] == wo_params_dict["send_to"]:
             return
-        wo_o
+        wo_obj = WorkingOrder(wo_params_dict)
+        wo_obj.continue_loop = True
+        self.wos_dict[wo_obj.external_working_order_id] = wo_obj
+        time_readable = datetime.datetime.now().strftime("%m-%d %H:%M")
+        wo_dict = {"neg_timestamp": -time.time(), "timestamp": time.time(), "time_readable": time_readable,
+                   "wo_id": str(wo_obj.external_working_order_id), "required_spread": str(wo_obj.required_spread),
+                   "quantity": str(wo_obj.total_quantity)}
+        response = firebase_push_value(["working_orders"], wo_dict)
+        t = threading.Thread(target=self.working_thread_general, args=[wo_obj])
+        t.
