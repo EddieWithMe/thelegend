@@ -63,4 +63,21 @@ class Exchanges:
                    "quantity": str(wo_obj.total_quantity)}
         response = firebase_push_value(["working_orders"], wo_dict)
         t = threading.Thread(target=self.working_thread_general, args=[wo_obj])
-        t.
+        t.start()
+        # self.create_wo_log(wo_obj)
+
+    def working_thread_general(self, wo_obj):
+        wo_obj.counter = 0
+        while True:
+            wo_obj.counter += 1
+            if not wo_obj.continue_loop:
+                self.working_order_log("cancelled continue loop bp 1", wo_obj)
+                break
+
+            current_spread = self.get_spread(wo_obj)
+            print "current_spread: %s" % current_spread
+            print "required_spread: %s" % wo_obj.required_spread
+            self.working_order_log("actual_spread: " + str(current_spread), wo_obj)
+
+            if self.check_price_criteria_met(current_spread, wo_obj.required_spread):
+        
