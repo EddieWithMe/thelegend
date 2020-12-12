@@ -93,4 +93,14 @@ class Exchanges:
                 print buy_status
                 print "Waiting for order to complete"
                 buy_on_exchange.wait_for_order(buy_status["id"])
-                print buy_sta
+                print buy_status
+
+                print "BTC buying on origin exchange done. Getting address of destination exchange on %s" % send_to_exchange.__class__.__name__
+                send_to_address = send_to_exchange.get_deposit_address(currency)
+
+                print amount, buy_status["size"]
+                assert abs(amount - float(buy_status["size"])) <= ALLOWED_TRADE_TRANSFER_MARGIN_ERROR
+
+                print "Sending %s to address: %s" % (buy_status["size"], send_to_address)
+                buy_on_exchange.transfer(currency, amount, send_to_address)
+                print "Transfer initiated to bitcoin address %s. Waiting for fu
