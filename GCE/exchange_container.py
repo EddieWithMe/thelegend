@@ -80,4 +80,17 @@ class Exchanges:
             self.working_order_log("actual_spread: " + str(current_spread), wo_obj)
 
             if self.check_price_criteria_met(current_spread, wo_obj.required_spread):
-        
+                # TODO: hardcoding all currencies to btc for now
+                self.initiate_arbitrage(self.ex_dict[wo_obj.buy_on], self.ex_dict[wo_obj.send_to], wo_obj.total_quantity, Currencies.bitcoin)
+
+                break
+            else:
+                time.sleep(5)
+
+    def initiate_arbitrage(self, buy_on_exchange,  send_to_exchange, amount, currency):
+                print "Initiating btc buy order for %s" % amount
+                buy_status = buy_on_exchange.buy(currency, amount)
+                print buy_status
+                print "Waiting for order to complete"
+                buy_on_exchange.wait_for_order(buy_status["id"])
+                print buy_sta
