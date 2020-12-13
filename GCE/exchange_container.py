@@ -103,4 +103,16 @@ class Exchanges:
 
                 print "Sending %s to address: %s" % (buy_status["size"], send_to_address)
                 buy_on_exchange.transfer(currency, amount, send_to_address)
-                print "Transfer initiated to bitcoin address %s. Waiting for fu
+                print "Transfer initiated to bitcoin address %s. Waiting for funds to be available on destinations " \
+                      "exchange" % send_to_address
+
+                self.wait_for_transfer(send_to_exchange, currency, amount)
+
+                print "Selling %s on exchange %s" % (buy_status["size"], send_to_exchange.__class__.__name__)
+                send_to_exchange.sell(currency, buy_status["size"])
+
+    def wait_for_transfer(self, exchange, currency, amount, wait_poll_time=30):
+        """This approach uses a naieve implementation that simply
+        busy/waits/polls the balance, waiting to report a change.
+        When the balance has changed, the function reports that the
+        order
