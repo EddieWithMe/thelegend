@@ -115,4 +115,18 @@ class Exchanges:
         """This approach uses a naieve implementation that simply
         busy/waits/polls the balance, waiting to report a change.
         When the balance has changed, the function reports that the
-        order
+        order has been placed.
+
+        @:param exchange: the destination exchange
+        @:param currency: the cryptocurrency to be deposited
+        @:param amount: the amount to be deposited
+        @:param wait_poll_time: time in seconds to wait between checking exchange current balance
+
+        """
+        initial_balance = exchange.get_balance(currency)
+        start_time = time.time()
+        # block until the balance changes/or timeout
+        current_balance = exchange.get_balance(currency)
+        estimate_balance_after_transfer = initial_balance + amount * 0.90
+        while estimate_balance_after_transfer > current_balance:
+            pr
