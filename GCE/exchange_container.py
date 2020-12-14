@@ -129,4 +129,15 @@ class Exchanges:
         current_balance = exchange.get_balance(currency)
         estimate_balance_after_transfer = initial_balance + amount * 0.90
         while estimate_balance_after_transfer > current_balance:
-            pr
+            print "Current balance: %s, Expected balance: %s" % (current_balance, estimate_balance_after_transfer)
+            current_balance = exchange.get_balance(currency)
+            if (time.time() - start_time) > exchange.transfer_time:
+                return False
+            time.sleep(wait_poll_time)
+        return True
+
+    def create_wo_log(self, wo_obj):
+        time_readable = datetime.datetime.now().strftime("%m-%d %H:%M")
+        log_dict = {"neg_time_unix": -time.time(), "time_unix": time.time(), "time_readable": time_readable,
+                    "text": "order id: " + str(wo_obj.external_working_order_id)[
+                                           0:6] + " st
