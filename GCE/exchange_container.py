@@ -140,4 +140,11 @@ class Exchanges:
         time_readable = datetime.datetime.now().strftime("%m-%d %H:%M")
         log_dict = {"neg_time_unix": -time.time(), "time_unix": time.time(), "time_readable": time_readable,
                     "text": "order id: " + str(wo_obj.external_working_order_id)[
-                                           0:6] + " st
+                                           0:6] + " started working cexio with required spread: " + str(
+                            wo_obj.required_spread)}
+        response = firebase_push_value(["log", wo_obj.buy_ex + "_" + wo_obj.send_ex], log_dict)
+        wo_dict = {"neg_timestamp": -time.time(), "timestamp": time.time(), "time_readable": time_readable,
+                   "wo_id": str(wo_obj.external_working_order_id), "required_spread": str(wo_obj.required_spread),
+                   "quantity": str(wo_obj.total_quantity), "buy_cexio": wo_obj.buy_sell}
+        response = firebase_push_value(["working_orders", wo_obj.buy_ex + "_" + wo_obj.send_ex], wo_dict)
+        s
