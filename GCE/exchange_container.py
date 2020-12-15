@@ -147,4 +147,17 @@ class Exchanges:
                    "wo_id": str(wo_obj.external_working_order_id), "required_spread": str(wo_obj.required_spread),
                    "quantity": str(wo_obj.total_quantity), "buy_cexio": wo_obj.buy_sell}
         response = firebase_push_value(["working_orders", wo_obj.buy_ex + "_" + wo_obj.send_ex], wo_dict)
-        s
+        set_in_firebase(["status", wo_obj.buy_ex + "_" + wo_obj.send_ex], "WORKING CEXIO")
+
+    def send_notification_email(self):
+        requests.get("https://coin-temple.appspot.com/send_notification_email?code=23123321")
+
+    def check_price_criteria_met(self, current_spread, required_spread):
+        return current_spread >= required_spread
+
+    def get_spread(self, wo_obj):
+        """
+        Returns the spread between the send and buy price, note that we are not taking the absolute value between prices
+        Becasue we don't want to be trading when the difference between the exchanges is positive
+        """
+        send_price = firebase_read_value([
