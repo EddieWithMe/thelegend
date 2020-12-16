@@ -160,4 +160,16 @@ class Exchanges:
         Returns the spread between the send and buy price, note that we are not taking the absolute value between prices
         Becasue we don't want to be trading when the difference between the exchanges is positive
         """
-        send_price = firebase_read_value([
+        send_price = firebase_read_value([wo_obj.send_to.upper(), "prices", "btc", "ask"])
+        buy_price = firebase_read_value([wo_obj.buy_on.upper(), "prices", "btc", "ask"])
+        actual_spread = 200 * (float(send_price) - float(buy_price)) / (float(send_price) + float(buy_price))
+        return actual_spread
+
+    def immed_fill(self, wo_obj, trade_size):
+        # TODO:  do we need this method to break from the loop?
+        immediate_complete_fill = self.grnt_place_working(wo_obj, trade_size)
+
+        if immediate_complete_fill:
+            self.ex_dict["cex"].buy(trade_size)
+            print "didn't completely fill, error"
+        if immediate_complete_fill == "order
