@@ -172,4 +172,20 @@ class Exchanges:
         if immediate_complete_fill:
             self.ex_dict["cex"].buy(trade_size)
             print "didn't completely fill, error"
-        if immediate_complete_fill == "order
+        if immediate_complete_fill == "order not made":
+            return "order not made"
+
+    def grnt_place_working(self, wo_obj, work_price_usd):
+        return_val = self.ex_dict[wo_obj.buy_ex].place_working_order(wo_obj, work_price_usd)
+        return return_val
+
+    def working_order_log(self, wo_log_text, wo_obj):
+        """
+        For moment to moment logging of working order behavior.
+        :param wo_log_text: 
+        :param wo_obj: 
+        :return: 
+        """
+        time_readable = datetime.datetime.now().strftime("%m-%d %H:%M")
+        wo_log_dict = {"neg_timestamp": -time.time(), "timestamp": time.time(), "time_readable": time_readable,
+                       "wo_id": str(wo_obj
