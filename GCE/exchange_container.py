@@ -188,4 +188,18 @@ class Exchanges:
         """
         time_readable = datetime.datetime.now().strftime("%m-%d %H:%M")
         wo_log_dict = {"neg_timestamp": -time.time(), "timestamp": time.time(), "time_readable": time_readable,
-                       "wo_id": str(wo_obj
+                       "wo_id": str(wo_obj.external_working_order_id), "text": wo_log_text}
+        t = threading.Thread(target=self.record_wo_log_in_firebase,
+                             args=[wo_log_dict])
+        t.start()
+        return
+
+    def record_wo_log_in_firebase(self, wo_log_dict):
+        firebase_push_value(["working_order_logs"], wo_log_dict)
+
+    def current_spread_pct(self, ex_label_1, ex_label_2):
+        return ((self.ex_dict[ex_label_1].ask_price - self.ex_dict[ex_label_2].ask_price) / self.ex_dict[
+            ex_label_1].ask_price) * 100.0
+
+    def record_completed_wo(self, wo_obj):
+        work_dict = {"quantity": float(wo_obj.work_just_matched_quanti
