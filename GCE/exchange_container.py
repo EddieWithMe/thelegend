@@ -202,4 +202,16 @@ class Exchanges:
             ex_label_1].ask_price) * 100.0
 
     def record_completed_wo(self, wo_obj):
-        work_dict = {"quantity": float(wo_obj.work_just_matched_quanti
+        work_dict = {"quantity": float(wo_obj.work_just_matched_quantity),
+                     "price": float(wo_obj.work_just_matched_price), "name": wo_obj.buy_ex}
+        hedge_dict = {"quantity": float(wo_obj.hedge_just_matched_quantity),
+                      "price": float(wo_obj.hedge_just_matched_price), "name": wo_obj.send_ex}
+        server_time = time.time()
+        push_dict = {"server_time": server_time}
+        push_dict["work"] = work_dict
+        push_dict["hedge"] = hedge_dict
+        push_dict["external_working_id"] = str(wo_obj.external_working_order_id)
+        if wo_obj.buy_sell == "buy":
+            push_dict["plus_minus"] = "+"
+        else:
+            push_dict["plus_minus"] 
