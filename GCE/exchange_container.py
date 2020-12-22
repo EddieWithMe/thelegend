@@ -214,4 +214,5 @@ class Exchanges:
         if wo_obj.buy_sell == "buy":
             push_dict["plus_minus"] = "+"
         else:
-            push_dict["plus_minus"] 
+            push_dict["plus_minus"] = "-"
+        firebase_push_value(["general_completed_working_orders"], push_dict)
