@@ -10,4 +10,4 @@ cex = exchanges.ex_dict["cex"]
 bittrex = exchanges.ex_dict["bittrex"]
 
 
-exchanges.initiate_arbitrage(exmo, cex, 0.002,
+exchanges.initiate_arbitrage(exmo, cex, 0.002, Currencies.bitcoin)
