@@ -30,4 +30,9 @@ def exchange_buy_and_send_thread(wo_uuid, cexio_global, gdax_global):
             order_log("cancelled continue loop bp 1", wo_uuid)
             break
         time_trigger = time.time() - last_time > 300
-       
+        if time_trigger:
+            last_time = time.time()
+        time.sleep(.05)
+    if cexio_global.get_continue_loop(wo_uuid):
+        order_log("got here w continue true", wo_uuid)
+    cexio_global.set_continue_loop(wo_uuid, False)
