@@ -17,4 +17,17 @@ def order_log(order_log_text, wo_uuid):
     return
 
 def exchange_buy_and_send_thread(wo_uuid, cexio_global, gdax_global):
-   
+    gdax_snapshot = gdax_global.get_ask_price()
+    cexio_snapshot = cexio_global.ask_price
+    diff = abs(float(gdax_snapshot)-float(cexio_snapshot))
+    average = (float(gdax_snapshot)+float(cexio_snapshot))/2.0
+    snapshot_spread = (diff / average)*100.0
+    log_text = "gdax: " + str(gdax_snapshot) + " cex: " + str(cexio_snapshot) + " spread: " + str(round(snapshot_spread, 3))
+    order_log(log_text, wo_uuid)
+    last_time = time.time()
+    while True:
+        if not cexio_global.get_continue_loop(wo_uuid):
+            order_log("cancelled continue loop bp 1", wo_uuid)
+            break
+        time_trigger = time.time() - last_time > 300
+       
