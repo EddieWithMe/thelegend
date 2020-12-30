@@ -25,4 +25,13 @@ class WorkingOrder:
         required_spread = self.required_spread
         hedge_ask = exchanges_container.ex_dict[self.send_to].ask_price
         hedge_bid = exchanges_container.ex_dict[self.send_to].bid_price
- 
+        work_price_usd = False
+        if self.buy_sell == "sell":
+            work_price_usd = hedge_ask + required_spread / 100.0 * hedge_ask
+        elif self.buy_sell == "buy":
+            work_price_usd = hedge_bid + required_spread / 100.0 * hedge_bid
+        work_price_usd = round(work_price_usd, 1)
+        return work_price_usd
+
+
+
