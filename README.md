@@ -29,4 +29,14 @@ shell $PATH. The binaries are located in `google-cloud-sdk/bin`.
    this repository.
 2. Export the `FLASK_APP` shell variable with the value of
    `exchange_server.py`.
-3. Execute `python -m flask run` from the `<root>/GCE` direct
+3. Execute `python -m flask run` from the `<root>/GCE` directory.
+
+### Running the Test Scripts
+
+1. Navigate to `<root>`
+2. Source the virtualenv: `source environment/bin/activate`
+3. Execute `python -m GCE.tests.test_x` where `test_x` is the module
+   to execute
+
+To make the example above more complete, an example of a test that can
+be ran is. `python -m GCE.tests.test_get_balance`.
