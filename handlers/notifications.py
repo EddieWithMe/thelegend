@@ -11,4 +11,5 @@ class SendNotificationsHandler(BaseHandler):
 		code = self.request.get("code")
 		if code == "23123321":
 			thisSettings = TradeSettings.query(TradeSettings.exchange_pair == "gdax_cex1").get()
-			send_notification_email(thisSettings.em
+			send_notification_email(thisSettings.email_notification)
+		return ""
