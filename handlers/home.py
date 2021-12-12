@@ -19,4 +19,5 @@ class UsersHandler(BaseHandler):
         allUsers = User.query().fetch()
         return_dict = {}
         for user in allUsers:
-            return_dict[user.ema
+            return_dict[user.email] = True
+        return self.response.out.write(json.dumps(return_dict))
