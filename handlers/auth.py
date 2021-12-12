@@ -270,3 +270,49 @@ class LoginHandler(BaseHandler):
 
 
 class LogoutHandler(BaseHandler):
+	def get(self):
+		self.auth.unset_session()
+		return self.redirect(self.uri_for('home'))
+
+
+def getNumInLast10Minutes(last100RequestTimes):
+	numInLast10Minutes = 0
+	date_10_minutes_ago = datetime.datetime.now() - datetime.timedelta(minutes=10)
+	for time in last100RequestTimes:
+		if time > date_10_minutes_ago:
+			numInLast10Minutes += 1
+	return numInLast10Minutes
+
+
+def checkIPAndCaptcha(self,typeString):
+	ipSignupCounter = IpSignupCounter.query(IpSignupCounter.ipAddress == self.request.remote_addr,IpSignupCounter.typeString ==typeString).get()
+	if not ipSignupCounter:
+		ipSignupCounter = IpSignupCounter.create(self.request.remote_addr, typeString, [datetime.datetime.utcnow()])
+		ipSignupCounter.put()
+		return "everything is fine"
+
+	last100TimesList = ipSignupCounter.last100RequestTimes
+	last100TimesList.append(datetime.datetime.utcnow())
+	ipSignupCounter.last100RequestTimes = last100TimesList
+	ipSignupCounter.put()
+
+	numInLastTenMinutes = getNumInLast10Minutes(ipSignupCounter.last100RequestTimes)
+	needCaptcha, tempBan = False, False
+	if numInLastTenMinutes > 3:
+		needCaptcha = True
+		if numInLastTenMinutes > 25:
+			tempBan = True
+			ipSignupCounter.timesBanned = ipSignupCounter.timesBanned + 1
+			ipSignupCounter.put()
+			logging.warning("User has had %d requests in last 30 minutes, rejecting." % (numInLastTenMinutes))
+			return '30minBan'
+
+	if needCaptcha:
+		return "everything is fine"
+		#captchastatus = sendCaptchaResponsetoGoogle(self)
+		#if captchastatus and captchastatus == 'invalidcaptcha':
+		 #return 'invalidcaptcha'
+
+	return "everything is fine"
+
+
