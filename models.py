@@ -149,3 +149,73 @@ class User(webapp2_extras.appengine.auth.models.User):
 
 
 # class Order(ndb.Model):
+#     exchange = ndb.StringProperty()
+#     amoount = ndb.FloatProperty()
+#     currency = ndb.StringProperty()
+#     state = ndb.StringProperty() # choices: pending, open, close
+#     user_id = ndb.IntegerProperty()
+
+
+class TradeSettings(ndb.Model):
+    created = ndb.DateTimeProperty(auto_now_add=True)
+    trade_size = ndb.FloatProperty()
+    required_spread = ndb.FloatProperty()
+    exchange_pair = ndb.StringProperty()
+    buy_on = ndb.StringProperty()
+    send_to = ndb.StringProperty()
+    email_notification = ndb.StringProperty()
+    coin = ndb.StringProperty()
+    current_order_id = ndb.StringProperty()
+    user_id = ndb.IntegerProperty()
+
+    @property
+    def get_id(self):
+        return self.key.id()
+
+    @classmethod
+    def create(cls, exchange_pair, coin, trade_size, required_spread, buy_on, send_to, email_notification):
+        trade_settings = cls(
+                coin=coin,
+                exchange_pair=exchange_pair,
+                trade_size=trade_size,
+                required_spread=required_spread,
+                buy_on=buy_on,
+                send_to=send_to,
+                email_notification=email_notification
+        )
+        trade_settings.put()
+        return trade_settings
+
+
+class MemcacheModel(ndb.Model):
+    lastLink = ndb.StringProperty()
+
+    @property
+    def get_id(self):
+        return self.key.id()
+
+    @classmethod
+    def create(cls, lastLink):
+        smItem = cls(
+                lastLink=lastLink
+        )
+        smItem.put()
+        return smItem
+
+
+class IpSignupCounter(ndb.Model):
+    ipAddress = ndb.StringProperty()
+    typeString = ndb.StringProperty()
+    last100RequestTimes = ndb.DateTimeProperty(repeated=True)
+    timesBanned = ndb.IntegerProperty(default=0)
+    created = ndb.DateTimeProperty(auto_now_add=True)
+
+    @classmethod
+    def create(cls, ipAddress, typeString, last100RequestTimes):
+        signupCounter = cls(
+                ipAddress=ipAddress,
+                typeString=typeString,
+                last100RequestTimes=last100RequestTimes
+        )
+        signupCounter.put()
+        return signupCounter
