@@ -1,1 +1,2 @@
-OUR_API_SECRET = 'gt12bpol6eighaig1aek4ujietheiXeengae3Ohqu9iecutheof5roox
+OUR_API_SECRET = 'gt12bpol6eighaig1aek4ujietheiXeengae3Ohqu9iecutheof5rooxeigheel8G'
+OUR_API_KEY = '1433g4ujietheiXeengae3Ohq'
