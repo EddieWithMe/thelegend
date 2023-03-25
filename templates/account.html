@@ -16,4 +16,13 @@
                 <div class="text-center"><font color="red">{{message}}</font></div>
 
     			<div class="col-md-10 col-md-offset-1">
-       				<form accept-charset='UTF-8' action="/account
+       				<form accept-charset='UTF-8' action="/account" method="post" class="changepasswordForm">
+                        <input type="hidden" name="csrf" value="{{csrf}}">
+                        <div class="form-group">
+							<label for='currentpassword'>{{account_trans.en2}}</label>
+                			<input type="password" class="form-control" placeholder="Current Password" name="currentpassword" id="currentpassword">
+            			</div>
+            			<div class="form-group">
+							<label for='newpassword'>{{account_trans.en3}}</label>
+                			<input type="password" class="form-control" placeholder="New Password" name="newpassword" id="newpassword">
+         
