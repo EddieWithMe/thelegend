@@ -1,0 +1,13 @@
+{% extends "templates/base.html" %}
+
+{% block title %}{{auth_forgot_trans.en0}}{% endblock %}
+
+{% block maincontent %}
+<div>
+    <div class='panel panel-borderless panel-default col-md-6 col-md-offset-3'>
+        <div class='panel-body'>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <h4>{{auth_forgot_trans.en0}}</h4>
+                    {% if ifFound %}
+                        {{a
