@@ -10,4 +10,20 @@
                 <div class="col-md-10 col-md-offset-1">
                     <h4>{{auth_forgot_trans.en0}}</h4>
                     {% if ifFound %}
-                        {{a
+                        {{auth_forgot_trans.en3}}
+                    {% else %}
+                        {{auth_forgot_trans.en1}}
+                    {% endif %}
+                </div>
+                <br>
+            </div>
+
+            {% if brute_force_issue %}
+                <div class='alert alert-danger errormessages alert-dismissable'>
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{brute_force_issue}}
+                </div>
+            {% endif %}
+            <div class="row">
+                {% if error %}
+                  <div class='alert alert-danger e
