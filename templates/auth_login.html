@@ -28,4 +28,13 @@
 
                     {% if locked %}
                         <div class='alert alert-danger errormessages alert-dismissable'>
-               
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <strong>{{auth_login_trans.en10}}</strong><br>
+                            <p>{{auth_login_trans.en11}}</p>
+                            <p>{{auth_login_trans.en12}} <a href="#contact" data-toggle='modal'> {{auth_login_trans.en9}}</a>{{auth_login_trans.en13}}</p>
+                        </div>
+                    {% endif %}
+                    {% if verified %}
+                        <div class="text-center"><font color="red">{{auth_login_trans.en3}}</font></div>
+                    {% endif %}
+   
