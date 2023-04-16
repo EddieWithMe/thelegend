@@ -6,4 +6,36 @@
 <!--<link rel="stylesheet" href="/css/small-bell-ring-01a.mp3">-->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/chartist.
+<script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+
+<style>
+
+.data_label_class {
+    font-weight: bold;
+    font-size: 80%;
+}
+
+.cancel_working {
+    cursor:pointer;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+</style>
+
+{% endblock %}
+{% block maincontent %}
+
+<div class="container">
+    <div id="settings-div-1" style="padding:0px;" class="row">
+        <div class="col-xs-2">
+            <span id="coin_show">Coin: {{coin}}</span>
+        </div>
+        <div class="col-xs-2">
+            <span id="required_spread_show">
