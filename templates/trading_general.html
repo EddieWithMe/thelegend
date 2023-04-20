@@ -53,4 +53,15 @@ input[type=number]::-webkit-outer-spin-button {
             <span id="email_notification_show">Email Notification: {{email_notification}}</span>
         </div>
     </div>
-    <div id="change-settings-div-1" class="row" style="padding-top
+    <div id="change-settings-div-1" class="row" style="padding-top:10px;">
+        <div class="col-xs-2">
+            <!--<input type="text" class="input-sm" name="coin" id="coin" value="{{coin}}" style="width:50px;">-->
+            <select name="coin" id="coin">
+              <option value="btc" {% if coin == "btc" %} selected {% endif %} >btc</option>
+              <option value="ltc"  {% if coin == "ltc" %} selected {% endif %} >ltc</option>
+                <option value="eth" {% if coin == "eth" %} selected {% endif %} >eth</option>
+              <option value="etc"  {% if coin == "etc" %} selected {% endif %} >etc</option>
+            </select>
+        </div>
+        <div class="col-xs-2">
+            <
