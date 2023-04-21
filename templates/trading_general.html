@@ -64,4 +64,13 @@ input[type=number]::-webkit-outer-spin-button {
             </select>
         </div>
         <div class="col-xs-2">
-            <
+            <input type="number" step="0.1" class="input-sm" name="required_spread" id="required_spread" value="{{required_spread}}" style="width:70px;">
+        </div>
+        <div class="col-xs-2">
+            <input type="number" step="0.1" class="input-sm" name="trade_size" id="trade_size" value="{{trade_size}}" style="width:70px;">
+        </div>
+
+        <div class="col-xs-2" >
+            <select name="buy_on_exchange" id="buy_on_exchange">
+              <option value="gdax" {% if buy_on == "gdax" %} selected {% endif %} >gdax</option>
+              <option value="cex"  {% if buy_on == "cex" %} selected {% endif %} >cex<
