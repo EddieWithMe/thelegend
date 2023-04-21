@@ -73,4 +73,14 @@ input[type=number]::-webkit-outer-spin-button {
         <div class="col-xs-2" >
             <select name="buy_on_exchange" id="buy_on_exchange">
               <option value="gdax" {% if buy_on == "gdax" %} selected {% endif %} >gdax</option>
-              <option value="cex"  {% if buy_on == "cex" %} selected {% endif %} >cex<
+              <option value="cex"  {% if buy_on == "cex" %} selected {% endif %} >cex</option>
+                <option value="kraken" {% if buy_on == "kraken" %} selected {% endif %} >kraken</option>
+              <option value="exmo"  {% if buy_on == "exmo" %} selected {% endif %} >exmo</option>
+            <option value="bittrex"  {% if buy_on == "bittrex" %} selected {% endif %} >bittrex</option>
+            </select>
+        </div>
+
+        <div class="col-xs-2" >
+            <select name="send_to_exchange" id="send_to_exchange">
+              <option value="gdax" {% if send_to == "gdax" %} selected {% endif %} >gdax</option>
+              <option value="cex"  {% if send_to == "cex" %} selected {% endif %} >cex</op
