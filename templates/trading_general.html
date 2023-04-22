@@ -97,4 +97,24 @@ input[type=number]::-webkit-outer-spin-button {
     </div>
 
     <div class="row" style="padding-top:20px;padding-left:20px;">
-        {{descripti
+        {{description_string}}
+    </div>
+
+    <div class="row" style="padding-top:20px;padding-left:20px;">
+        <div class="col-xs-2" >
+            <button class="btn btn-sm btn-primary" id="update_settings_btn" style="padding:4px;" data-toggle="modal" data-target="#checkModal">UPDATE</button>
+        </div>
+    </div>
+
+    <div style="padding:20px;" class="row">
+        <hr>
+        <div id="status_div" style="color:green;">
+
+        </div>
+    </div>
+
+    <div id="info-div-1" style="padding:20px;" class="row">
+        <div class="col-xs-9">
+            <div class="row">
+                <div class="col-xs-3">
+                    {%  for ex in ex
