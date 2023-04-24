@@ -117,4 +117,19 @@ input[type=number]::-webkit-outer-spin-button {
         <div class="col-xs-9">
             <div class="row">
                 <div class="col-xs-3">
-                    {%  for ex in ex
+                    {%  for ex in exchange_list %}
+                        <div>
+                            <span class="data_label_class">{{ex}} BALANCES</span>
+                            <ul style="list-style: none;" id="{{ex}}_BALANCES">
+
+                            </ul>
+                        </div>
+                    {%  endfor  %}
+                    <div style="padding:30px;">
+                    </div>
+                    <div style="padding:30px;">
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <table style="width:250px;">
+   
