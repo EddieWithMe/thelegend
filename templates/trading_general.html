@@ -199,4 +199,12 @@ input[type=number]::-webkit-outer-spin-button {
 </div>
 
 
-<div c
+<div class="modal " id="checkModal" aria-hidden=true role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form accept-charset='UTF-8' action="/update_settings/" method="post">
+                <div class="modal-header">
+                    <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+                    <h4>Please confirm</h4>
+                    <small> coin: <span id="coin_modal">{{coin}}</span></small>
+                    <small>required spread: <span id="required_spread_modal">{{required_spread}}</span>  trade size: <span id="trade_size_modal">{{trade_size}}<
