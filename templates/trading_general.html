@@ -207,4 +207,12 @@ input[type=number]::-webkit-outer-spin-button {
                     <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
                     <h4>Please confirm</h4>
                     <small> coin: <span id="coin_modal">{{coin}}</span></small>
-                    <small>required spread: <span id="required_spread_modal">{{required_spread}}</span>  trade size: <span id="trade_size_modal">{{trade_size}}<
+                    <small>required spread: <span id="required_spread_modal">{{required_spread}}</span>  trade size: <span id="trade_size_modal">{{trade_size}}</span></small>
+                     <small> buy on: <span id="buy_on_modal">{{buy_on}}</span></small>
+                    <small> send to: <span id="send_to_modal">{{send_to}}</span></small>
+                    <small> email notification: <span id="email_notification_modal">{{email_notification}}</span></small>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="coin" id="coin_input" value="{{coin}}"/>
+                    <input type="hidden" name="trade_size" id="trade_size_input" value="{{trade_size}}"/>
+                    <input type="hidden" name="required_spread" id="required_spread_input" value="{{required_
