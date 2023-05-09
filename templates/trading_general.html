@@ -226,4 +226,28 @@ input[type=number]::-webkit-outer-spin-button {
         </div>
     </div>
 </div>
-{% endblock mainconte
+{% endblock maincontent %}
+{% block addscripts %}
+
+<script type="text/javascript">
+
+    var holder_dict = {};
+
+    {% for ex in exchange_list %}
+        holder_dict["{{ex}}Ask"] = 0;
+        holder_dict["{{ex}}Bid"] = 0;
+    {%  endfor %}
+
+
+    var cexPositionsObj;
+    var gdaxPositionsObj;
+    var statusRef = firebase.database().ref("status/gdax_cex");
+    statusRef.on("value", function(snapshot) {
+        var VAL = snapshot.val();
+        if (VAL == null) {
+            VAL = "no active orders";
+        } else if (VAL.length == 0) {
+            VAL = "no active orders";
+        }
+        $("#status_div").text(VAL);
+   
