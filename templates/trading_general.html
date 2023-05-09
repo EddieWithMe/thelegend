@@ -250,4 +250,19 @@ input[type=number]::-webkit-outer-spin-button {
             VAL = "no active orders";
         }
         $("#status_div").text(VAL);
-   
+        doUpdated();
+    });
+
+    var LOG_REF = firebase.database().ref("log/gdax_cex").limitToLast(200);
+    LOG_REF.on('value', function(snapshot) {
+        var append_list = [];
+        var itemToAdd = snapshot.val();
+        for (item in itemToAdd) {
+            append_list.unshift(itemToAdd[item]);
+        }
+        append_list.sort(function(first, second) {
+         return second.time_unix - first.time_unix;
+        });
+        $("#LOG").html("");
+        for (var i = 0; i < append_list.length; i++){
+            $("#LOG").append('<li>' + append_list[i].time_readable + '<span style="padding:5px;">' + append_lis
