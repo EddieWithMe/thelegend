@@ -282,4 +282,23 @@ input[type=number]::-webkit-outer-spin-button {
         var {{ex}}PositionRef = firebase.database().ref("{{ex}}/positions/total");
         {{ex}}PositionRef.on("value", function(snapshot) {
             {{ex}}PositionsObj  = snapshot.val();
-            var new
+            var newVal = build_string_from_dict({{ex}}PositionsObj);
+            $("#{{ex}}_BALANCES").html(newVal);
+            doUpdated();
+        });
+    {%  endfor %}
+
+
+    {% for ex in exchange_list %}
+          var {{ex}}AskRef = firebase.database().ref("{{ex}}/prices/btc/ask");
+        {{ex}}AskRef.on("value", function(snapshot) {
+            holder_dict["{{ex}}Ask"] = parseFloat(snapshot.val());
+            holder_dict["{{ex}}Ask"] = parseFloat(Math.round(holder_dict["{{ex}}Ask"] * 10) / 10);
+
+            $("#{{ex}}_ASK").text(holder_dict["{{ex}}Ask"].toFixed(1));
+
+            doUpdated();
+        });
+
+
+        var {{ex}
