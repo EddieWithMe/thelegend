@@ -301,4 +301,24 @@ input[type=number]::-webkit-outer-spin-button {
         });
 
 
-        var {{ex}
+        var {{ex}}BidRef = firebase.database().ref("{{ex}}/prices/btc/bid");
+        {{ex}}BidRef.on("value", function(snapshot) {
+            holder_dict["{{ex}}Bid"] = parseFloat(snapshot.val());
+            holder_dict["{{ex}}Bid"] = parseFloat(Math.round(holder_dict["{{ex}}Bid"] * 10) / 10);
+            $("#{{ex}}_BID").text(holder_dict["{{ex}}Bid"].toFixed(1));
+            doUpdated();
+        });
+    {%  endfor  %}
+
+
+
+
+
+</script>
+<script type="text/javascript">
+
+    function apply_clicking(){
+        $(".cancel_working").click(function(){
+            console.log("once");
+            var this_id = $(this).attr('id');
+            cancel
