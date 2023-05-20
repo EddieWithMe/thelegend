@@ -339,4 +339,16 @@ input[type=number]::-webkit-outer-spin-button {
             var subDict = update_dict[key];
             var price_var = subDict["price"]*price_multiplier;
             price_var = price_var.toFixed(2);
-            var spread_var = subDict["require
+            var spread_var = subDict["required_spread"];
+            if (subDict["external_id"]) {
+                 buildString = buildString + "<li><span class='cancel_working' id='" + subDict["external_id"] + "'>X </span> " + subDict["side"] + " " + subDict["orderQty"] + " " + spread_var + " " + price_var + "</li>";
+            } else {
+                 buildString = buildString + "<li><span class='cancel_working' id='" + subDict["external_id"] + "'>NW </span> " + subDict["side"] + " " + subDict["orderQty"] + " " + price_var + " " + + "</li>";
+            }
+        }
+        return buildString;
+    }
+
+    doUpdated();
+    $("#set_orders_btn").click(function(){ trade_function();});
+    $("#cance
