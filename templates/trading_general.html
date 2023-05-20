@@ -321,4 +321,22 @@ input[type=number]::-webkit-outer-spin-button {
         $(".cancel_working").click(function(){
             console.log("once");
             var this_id = $(this).attr('id');
-            cancel
+            cancel_working_order_function(this_id);
+        });
+    }
+
+    function build_string_from_dict(update_dict){
+        var buildString = "";
+        for(var key in update_dict) {
+            buildString = buildString + "<li>" + key + " " + update_dict[key] + "</li>";
+        }
+        return buildString;
+    }
+
+    function build_orders_from_dict(update_dict, price_multiplier){
+        var buildString = "";
+        for(var key in update_dict) {
+            var subDict = update_dict[key];
+            var price_var = subDict["price"]*price_multiplier;
+            price_var = price_var.toFixed(2);
+            var spread_var = subDict["require
