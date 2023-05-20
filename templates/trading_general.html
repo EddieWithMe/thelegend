@@ -370,4 +370,24 @@ input[type=number]::-webkit-outer-spin-button {
     });
 
     $( "#send_to_exchange" ).change(function() {
-        $("#send_to_modal").te
+        $("#send_to_modal").text($("#send_to_exchange").val());
+        $("#send_to_input").val($("#send_to_exchange").val());
+    });
+
+    $( "#buy_on_exchange" ).change(function() {
+        $("#buy_on_modal").text($("#buy_on_exchange").val());
+        $("#buy_on_input").val($("#buy_on_exchange").val());
+    });
+
+    $( "#email_notification" ).change(function() {
+        $("#email_notification_modal").text($("#email_notification").val());
+        $("#email_notification_input").val($("#email_notification").val());
+    });
+
+    function trade_function(){
+        $.get("/work_exchange", function( data ) {
+          console.log( "Load was performed." );
+        });
+    }
+
+    function cancel_orders_function()
