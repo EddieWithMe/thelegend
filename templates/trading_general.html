@@ -351,4 +351,23 @@ input[type=number]::-webkit-outer-spin-button {
 
     doUpdated();
     $("#set_orders_btn").click(function(){ trade_function();});
-    $("#cance
+    $("#cancel_orders_btn").click(function(){ cancel_orders_function();});
+
+
+    $( "#coin" ).change(function() {
+        $("#coin_modal").text($("#coin").val());
+        $("#coin_input").val($("#coin").val());
+    });
+
+    $( "#required_spread" ).change(function() {
+        $("#required_spread_modal").text($("#required_spread").val());
+        $("#required_spread_input").val($("#required_spread").val());
+    });
+
+    $( "#trade_size" ).change(function() {
+        $("#trade_size_modal").text($("#trade_size").val());
+        $("#trade_size_input").val($("#trade_size").val());
+    });
+
+    $( "#send_to_exchange" ).change(function() {
+        $("#send_to_modal").te
