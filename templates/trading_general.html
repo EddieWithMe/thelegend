@@ -413,4 +413,22 @@ input[type=number]::-webkit-outer-spin-button {
         $("#updated").html(String(h) +":" + String(m) + ":" + String(s));
         $('.calc_class').each(function(){
             var id_string = this.id;
-            var first_ex =
+            var first_ex = id_string.split('-')[0];
+            var second_ex =id_string.split('-')[1];
+            //var first_ex_ask = $("#" + first_ex + "_ASK").val();
+            //var second_ex_ask = $("#" + second_ex + "_ASK").val();
+            var first_ex_ask = holder_dict[first_ex + "Ask"];
+            var second_ex_ask = holder_dict[second_ex + "Ask"];
+            console.log(first_ex_ask);
+            console.log(second_ex_ask);
+            var spread = (((first_ex_ask - second_ex_ask)/(first_ex_ask))*100.0).toFixed(2);
+            console.log(spread);
+            $(this).html(spread);
+         });
+    }
+
+    function change_ui_after_trade(data){
+
+    }
+</script>
+{% en
