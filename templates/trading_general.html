@@ -390,4 +390,27 @@ input[type=number]::-webkit-outer-spin-button {
         });
     }
 
-    function cancel_orders_function()
+    function cancel_orders_function(){
+        $.get("/cancel_order", function( data ) {
+          console.log( "Load was performed." );
+        });
+    }
+
+    function doUpdated() {
+        var d = new Date();
+        var h = d.getHours();
+        if (String(h).length == 1) {
+            h = "0"+h;
+        }
+        var m = d.getMinutes();
+        if (String(m).length == 1) {
+            m = "0"+m;
+        }
+        var s = d.getSeconds();
+        if (String(s).length == 1) {
+            s = "0"+s;
+        }
+        $("#updated").html(String(h) +":" + String(m) + ":" + String(s));
+        $('.calc_class').each(function(){
+            var id_string = this.id;
+            var first_ex =
