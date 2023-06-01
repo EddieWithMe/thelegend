@@ -39,4 +39,8 @@ class auth_signup_es:
     en14 = u"SOMETER"
     en15 = u"- only used for transactional (non-spam) communication"
     en16 = u"Security Policy"
-    en17 = u"CONTRASEÑA 
+    en17 = u"CONTRASEÑA OLVIDADA"
+
+    def __init__(self):
+        self.data=[]
+
