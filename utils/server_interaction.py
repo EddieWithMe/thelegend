@@ -23,4 +23,25 @@ else:
 
 def make_headers():
     nonce = str(int(time.time() * 1e6))
-    m
+    message = nonce + OUR_API_KEY
+    signature = hmac.new(OUR_API_SECRET, message, hashlib.sha256).hexdigest()
+    headers = {
+        'Access-Nonce': nonce,
+        'Access-Key': OUR_API_KEY,
+        'Access-Signature': signature
+    }
+    return headers
+
+
+def place_order(user_id):
+    thisSettings = TradeSettings.query(TradeSettings.user_id == user_id).get()
+    required_spread = thisSettings.required_spread
+    trade_size = thisSettings.trade_size
+    send_ex = thisSettings.send_to
+    buy_ex = thisSettings.buy_on
+    wo_params_dict = {}
+    wo_params_dict["required_spread"] = required_spread
+    wo_params_dict["quantity"] = trade_size
+    wo_params_dict["send_to"] = send_ex
+    wo_params_dict["buy_on"] = buy_ex
+    logg
