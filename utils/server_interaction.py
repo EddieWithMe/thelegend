@@ -44,4 +44,24 @@ def place_order(user_id):
     wo_params_dict["quantity"] = trade_size
     wo_params_dict["send_to"] = send_ex
     wo_params_dict["buy_on"] = buy_ex
-    logg
+    logging.info(wo_params_dict)
+    headers = make_headers()
+    wo_params_dict = {"wo_params_dict": json.dumps(wo_params_dict)}
+    headers['Content-Type'] = 'application/json'
+    response = urlfetch.fetch(
+            url=str(SERVER_URL + "/work_exchange"),
+            payload=json.dumps(wo_params_dict),
+            method=urlfetch.POST,
+            deadline=20,
+            headers=headers
+    )
+    logging.info(response.status_code)
+    logging.info(response.content)
+    if response.status_code in VALID_RESPONSE:
+        return "success"
+    else:
+        return "error"
+
+
+def cancel_all_orders(list_of_ex_to_cancel):
+    mheaders = make
