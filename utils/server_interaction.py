@@ -64,4 +64,20 @@ def place_order(user_id):
 
 
 def cancel_all_orders(list_of_ex_to_cancel):
-    mheaders = make
+    mheaders = make_headers()
+    mheaders['Content-Type'] = 'application/json'
+    payload_dict = {"list_of_ex_to_cancel": json.dumps(list_of_ex_to_cancel)}
+    response = urlfetch.fetch(
+            url=str(SERVER_URL + "/cancel"),
+            method=urlfetch.POST,
+            payload=json.dumps(payload_dict),
+            headers=mheaders,
+            deadline=20
+    )
+    # Send requests
+    if response.status_code in VALID_RESPONSE:
+        logging.info(response.content)
+        server_dict = json.loads(response.content)
+        if server_dict["success"] == True:
+            return "success"
+    return "error"
